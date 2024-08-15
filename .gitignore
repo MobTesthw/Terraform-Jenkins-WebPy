@@ -1,0 +1,7 @@
+# Игнорируем файлы состояния Terraform
+terraform.tfstate*
+
+# Игнорируем временные файлы и кэш Python
+.terraform/
+__pycache__/
+*.pyc
