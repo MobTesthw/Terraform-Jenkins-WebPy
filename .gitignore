@@ -1,5 +1,6 @@
 # Игнорируем файлы состояния Terraform
 terraform.tfstate*
+.terraform*
 
 # Игнорируем временные файлы и кэш Python
 .terraform/

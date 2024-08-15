@@ -2,7 +2,7 @@
 
 # variable "vpc_id" {}
 
-#variable "ec2_jenkins_ami_id" {}
+#variable "ec2_jenkins_ami" {}
 #variable "ec2_jenkins_instance_type" {}
 
 
@@ -10,11 +10,11 @@
 variable "subnet_id" {}
 variable "vpc_security_group_ids" {}
 variable "key_name" {}
-variable "ami_id" {}
-variable "instance_type" {}
+  variable "ami" {}
+  variable "instance_type" {}
 
 resource "aws_instance" "jenkins-machine" {
-  ami                    = var.ami_id
+  ami                    = var.ami
   instance_type          = var.instance_type
   subnet_id              = var.subnet_id
   vpc_security_group_ids = var.vpc_security_group_ids
