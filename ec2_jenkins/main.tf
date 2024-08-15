@@ -1,6 +1,12 @@
 # modules/jenkins-ec2.tf
 
-variable "vpc_id" {}
+# variable "vpc_id" {}
+
+#variable "ec2_jenkins_ami_id" {}
+#variable "ec2_jenkins_instance_type" {}
+
+
+
 variable "subnet_id" {}
 variable "vpc_security_group_ids" {}
 variable "key_name" {}

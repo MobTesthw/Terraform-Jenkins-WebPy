@@ -1,5 +1,14 @@
+variable "vpc_cidr" {}
+variable "vpc_subnet" {}
+variable "vpc_name" {}
+variable "availability_zone" {}
+
+
+
+
+
 # Создание VPC
-resource "aws_vpc" "proj-1" {
+resource "aws_vpc" "proj_1" {
   cidr_block = var.vpc_cidr
 
   tags = {
@@ -8,9 +17,9 @@ resource "aws_vpc" "proj-1" {
 }
 
 # Создание Subnet
-resource "aws_subnet" "proj-1" {
-  vpc_id            = aws_vpc.proj-1.id
-  cidr_block        = var.vpc_subnetA
+resource "aws_subnet" "proj_1" {
+  vpc_id            = aws_vpc.proj_1.id
+  cidr_block        = var.vpc_subnet
   availability_zone = var.availability_zone
   
   map_public_ip_on_launch = true		#Try to map public IP
@@ -19,14 +28,17 @@ resource "aws_subnet" "proj-1" {
     Name = "dev-proj-subnet"
   }
 }
-
+# Export 
+output "subnet_id" {
+  value = aws_subnet.proj_1.id
+}
 
 
 
 
 # Создание Internet Gateway
-resource "aws_internet_gateway" "proj-1" {
-  vpc_id = aws_vpc.proj-1.id
+resource "aws_internet_gateway" "proj_1" {
+  vpc_id = aws_vpc.proj_1.id
 
   tags = {
     Name = "dev-proj-igw"
@@ -34,12 +46,12 @@ resource "aws_internet_gateway" "proj-1" {
 }
 
 # Создание Route Table
-resource "aws_route_table" "proj-1" {
-  vpc_id = aws_vpc.proj-1.id
+resource "aws_route_table" "proj_1" {
+  vpc_id = aws_vpc.proj_1.id
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.proj-1.id
+    gateway_id = aws_internet_gateway.proj_1.id
   }
 
   tags = {
@@ -48,14 +60,14 @@ resource "aws_route_table" "proj-1" {
 }
 
 # Ассоциация Route Table с Subnet
-resource "aws_route_table_association" "proj-1" {
-  subnet_id      = aws_subnet.proj-1.id
-  route_table_id = aws_route_table.proj-1.id
+resource "aws_route_table_association" "proj_1" {
+  subnet_id      = aws_subnet.proj_1.id
+  route_table_id = aws_route_table.proj_1.id
 }
 
 # Security Group for Jenkins
 resource "aws_security_group" "jenkins_sg" {
-  vpc_id = aws_vpc.proj-1.id
+  vpc_id = aws_vpc.proj_1.id
 
   # HTTP (80)
   ingress {
