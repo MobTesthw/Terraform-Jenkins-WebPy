@@ -264,8 +264,13 @@ resource "aws_launch_template" "my_launch_template" {
   image_id = var.ec2_depl_ami                     #"ami-06878d265978313ca"
   instance_type = var.ec2_depl_instance_type      #"t2.micro"
   key_name = var.key_name     #"key-pem"                            #"ubuntu"
+
+  tags = {
+    Name = "Deploy-Server"
+  }
+
   
-  user_data = filebase64("${path.module}/server-deploy.sh")
+  user_data = filebase64("${path.module}/server-deploy-apt-docker.sh")             <-------------------------------Initilize script
 
   block_device_mappings {
     device_name = "/dev/sda1"
@@ -281,9 +286,6 @@ resource "aws_launch_template" "my_launch_template" {
     security_groups = [aws_security_group.depl_sg.id]
   }
 
-  tags = {
-    Name = "Deploy-Server"
-  }
 
 }
 

@@ -1,14 +1,20 @@
 #!/bin/bash
 
-# 1. Установка Jenkins
-
-# Добавляем Jenkins репозиторий и импортируем ключ
-sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
-sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
-
-# Обновляем пакеты и устанавливаем Jenkins
+# Install Jenkins
+sudo yum update -y
+sudo wget -O /etc/yum.repos.d/jenkins.repo \
+  https://pkg.jenkins.io/redhat-stable/jenkins.repo
+# Import a key file from Jenkins-CI to enable installation from the package:
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key	
 sudo yum upgrade -y
-sudo yum install java-11-openjdk -y
+
+# Install Java
+sudo yum install java-17-amazon-corretto -y
+																	 
+
+# Install Jenkins
+				   
+								   
 sudo yum install jenkins -y
 
 # Запускаем и добавляем Jenkins в автозагрузку
