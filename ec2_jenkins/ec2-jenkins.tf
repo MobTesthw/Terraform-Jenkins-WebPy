@@ -25,7 +25,7 @@ resource "aws_instance" "jenkins-machine" {
   }
 
   # user_data = file("${path.module}/jenkins-install.sh")
-  user_data = file("${path.module}/jenkins-install-config.sh")
+  user_data = file("${path.module}/jenkins-install-config.sh")                 <-------------------------------Initilize script
 }
 
 # Exit variable for IP Jenkins
